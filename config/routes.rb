@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  
+  root 'end_user/end_users#top'
+
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',
@@ -10,5 +11,12 @@ Rails.application.routes.draw do
     passwords:     'end_users/passwords',
     registrations: 'end_users/registrations'
   }
-  
+
+  namespace :admin do
+    resources :items, only: [:index]
+  end
+
+  scope module: :end_user do
+    resources :end_users, only: [:show]
+  end
 end
