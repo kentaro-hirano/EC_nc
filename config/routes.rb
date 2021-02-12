@@ -14,9 +14,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :items, only: [:index]
+    resources :end_users, only: [:index]
   end
 
   scope module: :end_user do
-    resources :end_users, only: [:show]
+    resources :end_users, only: [:show, :edit, :update] do
+    end
   end
 end
