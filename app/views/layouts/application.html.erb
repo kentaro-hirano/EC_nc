@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <% if admin_signed_in? %>
-          <%= link_to "NaganoCake", "#", class: "navbar-brand" %>
+          <%= link_to "NaganoCake", admin_items_path, class: "navbar-brand" %>
         <% else %>
           <%= link_to "NaganoCake", root_path, class: "navbar-brand" %>
         <% end %>
@@ -27,14 +27,14 @@
               <%= link_to "カート", "#", class: "nav-link active" %>
               <%= link_to "ログアウト", destroy_end_user_session_path, method: :delete, class: "nav-link active" %>
             <% elsif admin_signed_in? %>
-              <%= link_to "商品一覧", "#", class: "nav-link active" %>
-              <%= link_to "会員一覧", "#", class: "nav-link active" %>
+              <%= link_to "商品一覧", admin_items_path, class: "nav-link active" %>
+              <%= link_to "会員一覧", admin_end_users_path, class: "nav-link active" %>
               <%= link_to "注文履歴一覧", "#", class: "nav-link active" %>
               <%= link_to "ジャンル一覧", "#", class: "nav-link active" %>
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete,  class: "nav-link active" %>
             <% else %>
               <%= link_to "商品一覧", "#", class: "nav-link active"%>
-              <%= link_to "新規登録", "#", class: "nav-link active" %>
+              <%= link_to "新規登録", new_end_user_registration_path, class: "nav-link active" %>
               <%= link_to "ログイン", new_end_user_session_path, class: "nav-link active" %>
             <% end %>
           </ul>
