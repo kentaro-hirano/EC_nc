@@ -5,15 +5,81 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Admin.create!(
-   email: 'admin@gmail.com',
-   password: 'adminpas',
+  email: 'admin@gmail.com',
+  password: 'adminpas',
 )
 
 Genre.create!(
-   name: "ケーキ",
- )
- 
-Genre.create!(
-name: "ショートケーキ",
+  [
+    {
+      name: 'ケーキ',
+    },
+    {
+      name: 'シュークリーム',
+    },
+    {
+      name: 'ショートケーキ',
+    },
+    {
+      name: 'プリン',
+    },
+    {
+      name: 'モンブラン',
+    },
+    {
+      name: 'ロールケーキ',
+    },
+    {
+      name: 'フルーツケーキ',
+    },
+    {
+      name: 'スフレ',
+    },
+    {
+      name: 'シフォンケーキ',
+    },
+
+  ]
 )
+
+Item.create!(
+  [
+    {
+      name: 'いちごショートケーキ',
+      explanation: 'おいしいいちごショートケーキです',
+      price: '300',
+      genre_id: 3,
+      is_active: true,
+      image: open("./app/assets/images/itigo_short.jpg")
+    },
+    {
+      name: 'シュークリーム',
+      explanation: 'おいしいシュークリームです',
+      price: '300',
+      genre_id: 2,
+      is_active: true,
+      image: open("./app/assets/images/shu-kuri-mu.jpg")
+    },
+    {
+      name: 'ロールケーキ',
+      explanation: 'おいしいロールケーキです',
+      price: '400',
+      genre_id: 6,
+      is_active: true,
+      image: open("./app/assets/images/ro-ruke-ki.jpg")
+    },
+    {
+      name: 'モンブラン',
+      explanation: 'おいしいモンブランです',
+      price: '450',
+      genre_id: 5,
+      is_active: true,
+      image: open("./app/assets/images/monburan.jpg")
+    }
+  ]
+)
+
+
+

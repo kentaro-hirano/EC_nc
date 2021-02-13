@@ -8,11 +8,15 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_paramas)
     @item.save
-    redirect_to admin_items_path
+    redirect_to admin_item_path(@item)
   end
 
   def index
     @items = Item.all
+  end
+  
+  def show
+    @item = Item.find(params[:id])
   end
   
   private
