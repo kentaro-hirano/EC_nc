@@ -13,13 +13,13 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :items, only: [:index]
+    resources :items, only: [:index, :new, :create]
     resources :end_users, only: [:index]
   end
 
   scope module: :end_user do
     resources :end_users, only: [:show, :edit, :update] do
-      collection do 
+      collection do
         get 'quit'
         patch 'withdraw'
       end

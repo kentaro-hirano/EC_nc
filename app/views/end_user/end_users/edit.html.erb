@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <h2 class= "mt-4 mb-5">会員情報編集</h2>
-      <%= form_with model: @end_user, url: end_user_path(current_end_user, method: :patch) do |f| %>
+      <%= form_with model: @end_user, url: end_user_path(current_end_user), method: :patch do |f| %>
       <table>
         <tr>
           <th><%= f.label :"氏名", class: "mr-5" %></th>
