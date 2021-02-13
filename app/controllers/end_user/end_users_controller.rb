@@ -11,6 +11,13 @@ class EndUser::EndUsersController < ApplicationController
     @end_user = current_end_user
   end
   
+  def withdraw
+    @end_user = current_end_user
+    @end_user.update(is_vaild: true)
+    reset_session
+    redirect_to root_path
+  end
+  
   def update
     @end_user = current_end_user
     @end_user.update(end_user_params)

@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   scope module: :end_user do
     resources :end_users, only: [:show, :edit, :update] do
+      collection do 
+        get 'quit'
+        patch 'withdraw'
+      end
     end
   end
 end
