@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :end_users, only: [:index]
+    resources :genres, only: [:new, :index, :create, :edit, :update]
   end
 
   scope module: :end_user do
@@ -24,5 +25,6 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
     end
+    resources :items, only: [:index, :show]
   end
 end
