@@ -5,6 +5,9 @@ class EndUser < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   validates :first_name, :last_name, :kana_first_name, :kana_last_name, :address, :phone_number, presence: true
+  
+    has_many :cart_items, dependent: :destroy
+
          
   def active_for_authentication?
     super && (self.is_vaild == false)
