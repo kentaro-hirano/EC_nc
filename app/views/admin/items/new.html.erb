@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8">
       <h2 class= "mt-4 mb-5">商品新規登録</h2>
-      <%= form_with model: @item, url: admin_items_path, method: :post do |f| %>
+      <%= form_for @item, url: admin_items_path, method: :post do |f| %>
       <table>
         <tr>
           <th><%= f.label :"商品画像", class: "mr-5" %></th>

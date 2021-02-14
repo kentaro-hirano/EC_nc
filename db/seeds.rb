@@ -11,6 +11,13 @@ Admin.create!(
   password: 'adminpas',
 )
 
+Address.create!(
+  end_user_id: 1,
+  name: '平野健太朗',
+  address: '東京都世田谷区',
+  postal_code: '333333'
+)
+
 Genre.create!(
   [
     {
