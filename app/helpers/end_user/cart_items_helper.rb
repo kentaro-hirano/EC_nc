@@ -1,0 +1,2 @@
+module EndUser::CartItemsHelper
+end
