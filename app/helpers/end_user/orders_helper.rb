@@ -18,4 +18,9 @@ module EndUser::OrdersHelper
       end
       return price
     end
+    
+    # 請求金額の計算
+    def billing(order)
+      total_price(current_end_user.cart_items) + order.postage
+    end
 end
