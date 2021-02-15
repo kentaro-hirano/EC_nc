@@ -41,10 +41,11 @@ class EndUser::OrdersController < ApplicationController
         item_id: cart_item.item.id,
         order_id: @order.id,
         amount: cart_item.amount,
-        price: cart_item.price
+        price: cart_item.item.price
       )
     end
-    binding.pry
+    @cart_items.destroy_all
+    redirect_to complete_orders_path
   end
     private
     def order_params
