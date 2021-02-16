@@ -41,7 +41,7 @@
                 </div>
               </td>
               <td>
-                <p class= "mt-2"><%= sub_price(cart_item) %></p>
+                <p class= "mt-2"><%= sub_price(cart_item).to_s(:delimited) %></p>
               </td>
               <td><%= link_to "削除", cart_item_path(cart_item), method: :delete, data: {confirm: "本当に削除してもよろしいでしょうか？"}, class: "btn btn-danger" %></td>
           </tr>

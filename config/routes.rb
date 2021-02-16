@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :end_users, only: [:index]
     resources :genres, only: [:new, :index, :create, :edit, :update]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
   end
 
   scope module: :end_user do
