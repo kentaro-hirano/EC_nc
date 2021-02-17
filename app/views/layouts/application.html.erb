@@ -22,6 +22,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
              <% if end_user_signed_in? %>
+              <div class= "d-flex align-items-center mr-3">
+                <p class= "text-light mb-0"><%= "ようこそ#{current_end_user.first_name}さん!" %></p>
+              </div>
               <%= link_to "マイページ", end_user_path(current_end_user), class: "nav-link active" %>
               <%= link_to "商品一覧", items_path, class: "nav-link active" %>
               <%= link_to "カート", cart_items_path, class: "nav-link active" %>

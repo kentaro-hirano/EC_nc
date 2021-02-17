@@ -12,8 +12,8 @@
   <% if current_end_user.cart_items.present? %>
     <div class="row">
       <div class="col-md">
-        <table class= "table">
-          <tr>
+        <table class= "table table-bordered">
+          <tr class= "thead-light">
             <th>商品名</th>
             <th>単価（税込）</th>
             <th>数量</th>
@@ -36,27 +36,27 @@
                   <p class= "mb-0 mt-2"><%= cart_item.amount %></p>
                   <%= form_with model: cart_item, url: cart_item_path(cart_item), method: :patch do |f| %>
                     <%= f.number_field :amount, class: "ml-3 mt-2", max: 10, min: 1 %>
-                    <%= f.submit :"変更" %>
+                    <%= f.submit :"変更", class: "btn btn-success btn-sm" %>
                   <% end %>
                 </div>
               </td>
               <td>
                 <p class= "mt-2"><%= sub_price(cart_item).to_s(:delimited) %></p>
               </td>
-              <td><%= link_to "削除", cart_item_path(cart_item), method: :delete, data: {confirm: "本当に削除してもよろしいでしょうか？"}, class: "btn btn-danger" %></td>
+              <td><%= link_to "削除", cart_item_path(cart_item), method: :delete, data: {confirm: "本当に削除してもよろしいでしょうか？"}, class: "btn btn-danger btn-sm mt-2" %></td>
           </tr>
           <% end %>
         </table>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <%= link_to "買い物を続ける", items_path, class: "btn btn-primary ml-5" %>
       </div>
-      <div class="col-md-4">
-        <table class= "table">
+      <div class="col-md-3">
+        <table class= "table table-bordered">
           <tr>
-            <th>合計金額</th>
+            <th class= "table-active" style="width: 40%">合計金額</th>
             <td><%= total_price(@cart_items).to_s(:delimited) %></td>
           </tr>
         </table>

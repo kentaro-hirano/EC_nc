@@ -14,9 +14,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :end_users, only: [:index]
+    resources :end_users, only: [:index, :show, :edit, :update] do 
+      member do 
+        get 'end_user_orders'
+      end
+    end
     resources :genres, only: [:new, :index, :create, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
+    resources :orders, only: [:index, :show, :update] 
     resources :order_details, only: [:update]
   end
 
@@ -28,7 +32,7 @@ Rails.application.routes.draw do
       end
     end
     resources :items, only: [:index, :show]
-    resources :orders, only: [:new, :create] do 
+    resources :orders, only: [:new, :create, :index, :show] do 
       collection do 
         post 'confirm'
         get 'complete'
@@ -39,6 +43,6 @@ Rails.application.routes.draw do
         delete 'destroy_all'
       end
     end
-    resources :addresses, only:[:index, :create, :edit,  :update, :destroy]
+    resources :addresses, only:[:index, :create, :edit, :update, :destroy]
   end
 end

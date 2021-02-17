@@ -32,11 +32,11 @@ class EndUser::OrdersController < ApplicationController
     end
   end
 
-  def create    
+  def create
     @order = current_end_user.orders.new(order_params)
     @order.save
     @cart_items = current_end_user.cart_items
-    @cart_items.each do |cart_item| 
+    @cart_items.each do |cart_item|
       OrderDetail.create(
         item_id: cart_item.item.id,
         order_id: @order.id,
@@ -47,13 +47,22 @@ class EndUser::OrdersController < ApplicationController
     @cart_items.destroy_all
     redirect_to complete_orders_path
   end
-    private
-    def order_params
-      params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_price)
-    end
 
-    def address_params
-      params.require(:order).permit(:postal_code, :address, :name)
-    end
+  def index
+    @orders = current_end_user.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_price)
+  end
+
+  def address_params
+    params.require(:order).permit(:postal_code, :address, :name)
+  end
 
 end
