@@ -7,7 +7,7 @@
         <tr>
           <th><%= f.label :"氏名", class: "mr-5" %></th>
           <td>
-            <div class="form-group form-inline">
+          
               <%= f.text_field :first_name, class: "form-control" %>
               <%= f.text_field :last_name, class: "form-control" %>
             </div>
@@ -34,9 +34,10 @@
           <th><%= f.label :"住所", class: "mr-5" %></th>
           <td>
             <div class="form-group form-inline">
-               <%= f.text_field :address, class: "form-control" %>
+               <%= f.text_field :address, class: "form-control w-100" %>
             </div>
           </td>
+          <td></td>
         </tr>
         <tr>
           <th><%= f.label :"電話番号", class: "mr-5" %></th>
