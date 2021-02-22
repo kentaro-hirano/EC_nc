@@ -3,11 +3,27 @@ class ApplicationController < ActionController::Base
 
   include EndUser::OrdersHelper
 
-  def after_sign_in_path_for(resource)
-    if end_user_signed_in?
-      end_user_path(current_end_user)
-    else
+  # def after_sign_in_path_for(resource)
+  #   if end_user_signed_in?
+  #     end_user_path(current_end_user)
+  #   else
+  #     admin_items_path
+  #   end
+  # end
+  
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.is_a?(Admin)
       admin_items_path
+    else
+      root_path
+    end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+     new_admin_session_path
+    else
+     root_path
     end
   end
 

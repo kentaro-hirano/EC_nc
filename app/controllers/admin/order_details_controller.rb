@@ -4,8 +4,8 @@ class Admin::OrderDetailsController < ApplicationController
     @order_detail = OrderDetail.find(params[:id])
     @order_detail.update(order_detail_params)
     @order = @order_detail.order
-      # binding.pry
     if params[:order_detail][:production_status] = "2"
+    binding.pry
       @order_detail.order.update(order_status: 2)
     end
     if @order.order_details.where(production_status: 3).count == @order.order_details.count
