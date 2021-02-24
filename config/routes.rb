@@ -27,10 +27,13 @@ Rails.application.routes.draw do
     resources :end_users, only: [:show, :edit, :update] do
       collection do
         get 'quit'
+        get "favorites"
         patch 'withdraw'
       end
     end
-    resources :items, only: [:index, :show]
+    resources :items, only: [:index, :show] do 
+      resource :favorites, only: [:create, :destroy]
+    end
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
         post 'confirm'

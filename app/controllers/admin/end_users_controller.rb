@@ -1,4 +1,6 @@
 class Admin::EndUsersController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @end_users = EndUser.all
   end
@@ -17,7 +19,7 @@ class Admin::EndUsersController < ApplicationController
     flash[:success] = "会員情報を更新しました"
     redirect_to admin_end_user_path(@end_user)
   end
-  
+
   def end_user_orders
     @end_user = EndUser.find(params[:id])
   end

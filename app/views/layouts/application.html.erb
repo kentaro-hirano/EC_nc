@@ -25,6 +25,7 @@
               <div class= "d-flex align-items-center mr-3">
                 <p class= "text-light mb-0"><%= "ようこそ#{current_end_user.first_name}さん!" %></p>
               </div>
+              <%= link_to "お気に入りリスト", favorites_end_users_path, class: "nav-link active" %>
               <%= link_to "マイページ", end_user_path(current_end_user), class: "nav-link active" %>
               <%= link_to "商品一覧", items_path, class: "nav-link active" %>
               <%= link_to "カート", cart_items_path, class: "nav-link active" %>

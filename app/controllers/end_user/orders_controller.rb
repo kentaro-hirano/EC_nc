@@ -1,7 +1,10 @@
 class EndUser::OrdersController < ApplicationController
+  before_action :authenticate_end_user!
+  before_action :check_cart_item
 
   def new
     @order = Order.new
+    # binding.pry
     @addresses = Address.where(end_user_id: current_end_user.id)
   end
 
@@ -28,13 +31,14 @@ class EndUser::OrdersController < ApplicationController
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
       @order.total_price = total_price(@cart_items)
-      current_end_user.addresses.create(address_params)
     end
   end
 
   def create
     @order = current_end_user.orders.new(order_params)
     @order.save
+    binding.pry
+    current_end_user.addresses.create(address_params)
     @cart_items = current_end_user.cart_items
     @cart_items.each do |cart_item|
       OrderDetail.create(
@@ -63,6 +67,12 @@ class EndUser::OrdersController < ApplicationController
 
   def address_params
     params.require(:order).permit(:postal_code, :address, :name)
+  end
+
+  def check_cart_item
+   unless current_end_user.cart_items.present?
+     redirect_to cart_items_path
+   end
   end
 
 end
