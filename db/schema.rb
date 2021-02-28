@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_02_24_065304) do
     t.string "postal_code"
     t.string "address"
     t.string "phone_number"
+    t.integer "point", default: 100
     t.boolean "is_vaild", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

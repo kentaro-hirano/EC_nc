@@ -15,6 +15,7 @@
           <%= link_to "NaganoCake", admin_items_path, class: "navbar-brand" %>
         <% else %>
           <%= link_to "NaganoCake", root_path, class: "navbar-brand" %>
+          <p class= "navbar-brand mb-0">ポイント<%= current_end_user.point %></p>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

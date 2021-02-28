@@ -37,7 +37,14 @@ class EndUser::OrdersController < ApplicationController
   def create
     @order = current_end_user.orders.new(order_params)
     @order.save
-    binding.pry
+    @point = current_end_user.point
+    if @order.total_price >= 3000
+      @point += 10
+    elsif @order.total_price >= 1000 && @order.total_price < 3000
+      @point += 5
+    end
+    current_end_user.point = @point
+    current_end_user.save
     current_end_user.addresses.create(address_params)
     @cart_items = current_end_user.cart_items
     @cart_items.each do |cart_item|

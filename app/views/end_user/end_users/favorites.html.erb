@@ -3,7 +3,7 @@
     <div class="col-md">
       <% if @favorites.present? %>
       <h3 class= "mb-3">お気に入りリスト(全<%= @favorites.count %>件)</h3>
-      <div class= "d-flex ">
+      <div class= "d-flex justify-content-center">
           <% @favorites.each do |favorite| %>
             <div class= "items-section">
               <div class= "items-item mr-5">
