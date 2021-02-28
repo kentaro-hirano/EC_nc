@@ -1,7 +1,19 @@
 <div class="container">
   <div class="row mb-3">
-    <div class="col-md-9">
+    <div class="col-md-8">
       <h3>注文情報確認</h3>
+    </div>
+    <% if @order.total_price != total_price(@cart_items) %>
+      <div class="col-md-4 d-flex align-items-end">
+        <p class= "text-danger mb-0">ポイントを利用しています</p>
+      </div>
+    <% end %>
+    <div class="col-md-4 d-flex align-items-end">
+      <% if @order.total_price >= 3000 %>
+        <p class= "text-success mb-0">10ポイント付与されます</p>
+      <% elsif @order.total_price >= 1000 && @order.total_price < 3000 %>
+        <p class= "text-success mb-0">5ポイント付与されます</p>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -40,15 +52,25 @@
       <table class= "table table-bordered">
         <tr>
           <th class= "table-active">送料</th>
-          <td><%= @order.name %></td>
+          <td>¥<%= @order.postage %></td>
         </tr>
         <tr>
           <th class= "table-active">商品合計</th>
-          <td><%= total_price(@cart_items).to_s(:delimited) %></td>
+          <td>¥<%= total_price(@cart_items).to_s(:delimited) %></td>
         </tr>
         <tr>
-          <th class= "table-active">請求金額</th>
-          <td><%= billing(@order).to_s(:delimited) %></td>
+          <th class= "table-active">合計金額</th>
+            <td>¥<%= billing(@order).to_s(:delimited) %></td>
+        </tr>
+      <% if @order.total_price != total_price(@cart_items) %>
+        <tr>
+          <th class= "table-active">ポイント利用</th>
+            <td><p class= "text-danger mb-0">¥-<%= current_end_user.point %></p></td>
+        </tr>
+      <% end %>
+        <tr>
+          <th class= "table-active">ご請求金額</th>
+          <td>¥<%= (@order.total_price + @order.postage).to_s(:delimited)  %></td>
         </tr>
       </table>
     </div>
@@ -67,6 +89,7 @@
       </table>
     </div>
   </div>
+
   <div class="text-center">
    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
      <%= f.hidden_field :postal_code %>

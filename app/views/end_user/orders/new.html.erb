@@ -38,6 +38,15 @@
             <%= f.text_field :name, class: "form-control w-25"%>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="field">
+              <%= check_box_tag :point, true, false %>
+              <%= label_tag :point,"保有ポイントを使う(#{current_end_user.point}ポイント)" %>
+              <p></p>
+            </div>
+          </div>
+        </div>
         <div class="text-center">
           <%= f.submit "確認画面に進む", class: "btn btn-primary" %>
         </div>

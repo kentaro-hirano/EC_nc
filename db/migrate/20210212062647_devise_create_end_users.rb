@@ -39,7 +39,7 @@ class DeviseCreateEndUsers < ActiveRecord::Migration[5.0]
       t.string :postal_code
       t.string :address
       t.string :phone_number
-      t.integer :point, default: 100
+      t.integer :point, default: 0
       t.boolean :is_vaild, default: false, null: false
 
       t.timestamps null: false

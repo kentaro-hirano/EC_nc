@@ -1,6 +1,6 @@
 class EndUser::OrdersController < ApplicationController
   before_action :authenticate_end_user!
-  before_action :check_cart_item
+  before_action :check_cart_item, except: :complete
 
   def new
     @order = Order.new
@@ -9,6 +9,7 @@ class EndUser::OrdersController < ApplicationController
   end
 
   def confirm
+    # binding.pry
     @cart_items = current_end_user.cart_items
     @order = Order.new(
     end_user: current_end_user,
@@ -19,7 +20,11 @@ class EndUser::OrdersController < ApplicationController
       @order.postal_code = current_end_user.postal_code
       @order.address = current_end_user.address
       @order.name = current_end_user.first_name + current_end_user.last_name
-      @order.total_price = total_price(@cart_items)
+      if params[:point] == "true"
+        @order.total_price = total_price(@cart_items) - @order.end_user.point
+      elsif
+        @order.total_price = total_price(@cart_items)
+      end
     elsif params[:order][:address_option] == "1"
       @ship = Address.find(params[:order][:address_id])
       @order.postal_code = @ship.postal_code
@@ -37,6 +42,11 @@ class EndUser::OrdersController < ApplicationController
   def create
     @order = current_end_user.orders.new(order_params)
     @order.save
+    @cart_items = current_end_user.cart_items
+    if @order.total_price != total_price(@cart_items)
+      current_end_user.update(point: 0)
+    end
+    # binding.pry
     @point = current_end_user.point
     if @order.total_price >= 3000
       @point += 10
@@ -46,7 +56,6 @@ class EndUser::OrdersController < ApplicationController
     current_end_user.point = @point
     current_end_user.save
     current_end_user.addresses.create(address_params)
-    @cart_items = current_end_user.cart_items
     @cart_items.each do |cart_item|
       OrderDetail.create(
         item_id: cart_item.item.id,
@@ -65,6 +74,9 @@ class EndUser::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+  end
+
+  def complete
   end
 
   private
