@@ -13,7 +13,7 @@
       <div class="container">
         <% if admin_signed_in? %>
           <%= link_to "NaganoCake", admin_items_path, class: "navbar-brand" %>
-        <% else %>
+        <% elsif end_user_signed_in? %>
           <%= link_to "NaganoCake", root_path, class: "navbar-brand" %>
           <p class= "navbar-brand mb-0">ポイント<%= current_end_user.point %></p>
         <% end %>
