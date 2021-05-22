@@ -12,8 +12,8 @@
         <% @orders.each do |order| %>
         <tr>
           <td>
-            <%= link_to admin_order_path(order), class: "text-dark" do %>
-              <%= l order.created_at %>
+            <%= link_to admin_order_path(order), class: "text-primary" do %>
+              <%= order.created_at %>
             <% end %>
           </td>
           <td><%= "#{order.end_user.first_name}#{order.end_user.last_name}" %></td>

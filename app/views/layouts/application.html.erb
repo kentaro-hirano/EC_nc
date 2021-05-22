@@ -13,7 +13,7 @@
       <div class="container">
         <% if admin_signed_in? %>
           <%= link_to "NaganoCake", admin_items_path, class: "navbar-brand" %>
-        <% else %>
+        <% elsif end_user_signed_in? %>
           <%= link_to "NaganoCake", root_path, class: "navbar-brand" %>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
