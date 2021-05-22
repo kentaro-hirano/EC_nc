@@ -11,6 +11,11 @@ class EndUser::EndUsersController < ApplicationController
     @end_user = current_end_user
   end
   
+  def favorites
+    @favorites = Favorite.where(end_user_id: current_end_user)
+    # binding.pry
+  end
+  
   def withdraw
     @end_user = current_end_user
     @end_user.update(is_vaild: true)

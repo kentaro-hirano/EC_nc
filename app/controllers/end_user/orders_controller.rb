@@ -1,11 +1,15 @@
 class EndUser::OrdersController < ApplicationController
+  before_action :authenticate_end_user!
+  before_action :check_cart_item, except: :complete
 
   def new
     @order = Order.new
+    # binding.pry
     @addresses = Address.where(end_user_id: current_end_user.id)
   end
 
   def confirm
+    # binding.pry
     @cart_items = current_end_user.cart_items
     @order = Order.new(payment_method: params[:order][:payment_method])
 
@@ -13,7 +17,11 @@ class EndUser::OrdersController < ApplicationController
       @order.postal_code = current_end_user.postal_code
       @order.address = current_end_user.address
       @order.name = current_end_user.first_name + current_end_user.last_name
-      @order.total_price = total_price(@cart_items)
+      if params[:point] == "true"
+        @order.total_price = total_price(@cart_items) - @order.end_user.point
+      elsif
+        @order.total_price = total_price(@cart_items)
+      end
     elsif params[:order][:address_option] == "1"
       @ship = Address.find(params[:order][:address_id])
       @order.postal_code = @ship.postal_code
@@ -26,15 +34,27 @@ class EndUser::OrdersController < ApplicationController
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
       @order.total_price = total_price(@cart_items)
-      current_end_user.addresses.create(address_params)
     end
   end
 
-  def create    
+  def create
     @order = current_end_user.orders.new(order_params)
     @order.save
     @cart_items = current_end_user.cart_items
-    @cart_items.each do |cart_item| 
+    if @order.total_price != total_price(@cart_items)
+      current_end_user.update(point: 0)
+    end
+    # binding.pry
+    @point = current_end_user.point
+    if @order.total_price >= 3000
+      @point += 10
+    elsif @order.total_price >= 1000 && @order.total_price < 3000
+      @point += 5
+    end
+    current_end_user.point = @point
+    current_end_user.save
+    current_end_user.addresses.create(address_params)
+    @cart_items.each do |cart_item|
       OrderDetail.create(
         item_id: cart_item.item.id,
         order_id: @order.id,
@@ -45,13 +65,31 @@ class EndUser::OrdersController < ApplicationController
     @cart_items.destroy_all
     redirect_to complete_orders_path
   end
-    private
-    def order_params
-      params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_price)
-    end
 
-    def address_params
-      params.require(:order).permit(:postal_code, :address, :name)
-    end
+  def index
+    @orders = current_end_user.orders
+  end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
+  def complete
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:postal_code, :address, :name, :payment_method, :total_price)
+  end
+
+  def address_params
+    params.require(:order).permit(:postal_code, :address, :name)
+  end
+
+  def check_cart_item
+   unless current_end_user.cart_items.present?
+     redirect_to cart_items_path
+   end
+  end
 
 end

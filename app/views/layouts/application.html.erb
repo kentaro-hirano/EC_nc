@@ -15,6 +15,7 @@
           <%= link_to "NaganoCake", admin_items_path, class: "navbar-brand" %>
         <% elsif end_user_signed_in? %>
           <%= link_to "NaganoCake", root_path, class: "navbar-brand" %>
+          <p class= "navbar-brand mb-0">ポイント<%= current_end_user.point %></p>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -22,6 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
              <% if end_user_signed_in? %>
+              <div class= "d-flex align-items-center mr-3">
+                <p class= "text-light mb-0"><%= "ようこそ#{current_end_user.first_name}さん!" %></p>
+              </div>
+              <%= link_to "お気に入りリスト", favorites_end_users_path, class: "nav-link active" %>
               <%= link_to "マイページ", end_user_path(current_end_user), class: "nav-link active" %>
               <%= link_to "商品一覧", items_path, class: "nav-link active" %>
               <%= link_to "カート", cart_items_path, class: "nav-link active" %>
@@ -41,9 +46,22 @@
         </div>
       </div>
     </nav>
-     <% flash.each do |key, value| %>
+    <% flash.each do |key, value| %>
       <p class = "alert alert-primary pt-2 pb-2 mb-0 w-auto"><%= value %><p>
     <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 offset-md-8 d-flex justify-content-end">
+          <form class="form-inline my-2 my-lg-0 pr-2">
+            <%= form_tag admin_items_path, :method => 'get' do %> <%# projects_pathはモデル名で読みかえること %>
+            <p class= "search mb-0">
+              <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "商品検索" %>
+              <%= submit_tag "Search", class: "btn btn-outline-success my-2", :name => nil %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <%= yield %>
 
