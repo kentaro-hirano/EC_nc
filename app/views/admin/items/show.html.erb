@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 text-right mb-4">
-      <h3 class= "mt-3">商品詳細</h3>
+      <h3>商品詳細</h3>
     </div>
   </div>
   <div class="row mt3">
@@ -29,9 +29,9 @@
         <tr>
           <th>ジャンル</th>
           <% if @item.is_active == false %>
-            <td>販売停止中</td>
-          <% else %>
              <td class= "text-success">販売中</td>
+          <% else %>
+            <td>販売停止中</td>
           <% end %>
         </tr>
       </table>
