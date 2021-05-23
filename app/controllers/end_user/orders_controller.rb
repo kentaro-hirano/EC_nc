@@ -34,7 +34,6 @@ class EndUser::OrdersController < ApplicationController
     elsif params[:order][:address_option] = "2"
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
       @order.total_price = total_price(@cart_items)
     end
   end
@@ -43,18 +42,18 @@ class EndUser::OrdersController < ApplicationController
     @order = current_end_user.orders.new(order_params)
     @order.save
     @cart_items = current_end_user.cart_items
-    if @order.total_price != total_price(@cart_items)
-      current_end_user.update(point: 0)
-    end
-    # binding.pry
-    @point = current_end_user.point
-    if @order.total_price >= 3000
-      @point += 10
-    elsif @order.total_price >= 1000 && @order.total_price < 3000
-      @point += 5
-    end
-    current_end_user.point = @point
-    current_end_user.save
+    # if @order.total_price != total_price(@cart_items)
+    #   current_end_user.update(point: 0)
+    # end
+    # # binding.pry
+    # @point = current_end_user.point
+    # if @order.total_price >= 3000
+    #   @point += 10
+    # elsif @order.total_price >= 1000 && @order.total_price < 3000
+    #   @point += 5
+    # end
+    # current_end_user.point = @point
+    # current_end_user.save
     current_end_user.addresses.create(address_params)
     @cart_items.each do |cart_item|
       OrderDetail.create(

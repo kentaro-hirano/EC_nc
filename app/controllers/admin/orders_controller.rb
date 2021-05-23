@@ -9,7 +9,7 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  def updatepara
+  def update
     @order = Order.find(params[:id])
     @order.update(order_params)
     if params[:order][:order_status] = "1"
