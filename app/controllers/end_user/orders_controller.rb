@@ -11,10 +11,7 @@ class EndUser::OrdersController < ApplicationController
   def confirm
     # binding.pry
     @cart_items = current_end_user.cart_items
-    @order = Order.new(
-    end_user: current_end_user,
-    payment_method: params[:order][:payment_method]
-    )
+    @order = Order.new(payment_method: params[:order][:payment_method])
 
     if params[:order][:address_option] == "0"
       @order.postal_code = current_end_user.postal_code
@@ -32,6 +29,7 @@ class EndUser::OrdersController < ApplicationController
       @order.name = @ship.name
       @order.total_price = total_price(@cart_items)
     elsif params[:order][:address_option] = "2"
+      binding.pry
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
       @order.total_price = total_price(@cart_items)
