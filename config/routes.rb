@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :end_user do
-    resources :end_users, only: [:show, :edit, :update] do
+    resources :end_users, only: [:show, :edit, :update] do 
       collection do
         get 'quit'
         get "favorites"

@@ -92,12 +92,12 @@
 
   <div class="text-center">
    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
-     <%= f.hidden_field :postal_code %>
-     <%= f.hidden_field :address %>
-     <%= f.hidden_field :name %>
-     <%= f.hidden_field :payment_method %>
-     <%= f.hidden_field :total_price %>
-     <%= f.submit "購入を確定する", data: {confirm: "注文を確定しますか？"}, class: "btn btn-primary" %>
+    <%= f.hidden_field :postal_code %>
+    <%= f.hidden_field :address %>
+    <%= f.hidden_field :name %>
+    <%= f.hidden_field :payment_method %>
+    <%= f.hidden_field :total_price %>
+    <%= f.submit "購入を確定する", data: {confirm: "注文を確定しますか？"}, class: "btn btn-primary" %>
    <% end %>
   </div>
 </div>
